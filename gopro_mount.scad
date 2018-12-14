@@ -7,16 +7,17 @@ skid_length = 36;
 base_width = 50;
 skid_width = 5;
 base_height = 4;
-skid_height = 8;
 
 strength_mount = 4;
+
+height_dampers = 8;
 strength_dampers = 1.5;
 
 
-//translate([10, base_width/2. - 7.5, base_height + gopro_extent]) rotate([0, 90, 90]) gopro_mount();
-//base_plate();
+translate([10, base_width/2. - 7.5, base_height + gopro_extent]) rotate([0, 90, 90]) gopro_mount();
+base_plate();
 skid();
-//translate([0, base_width - skid_width]) skid();
+translate([2.*base_length - skid_length, base_width]) rotate([0, 0, 180]) skid();
 
 
 module gopro_mount(){
@@ -56,12 +57,12 @@ module base_plate(){
 module skid(){
     translate([base_length - skid_length, 0, -strength_mount])
         cube([skid_length, skid_width, strength_mount]);
-    translate([base_length - skid_length, 0, -strength_mount - skid_height])
-        cube([strength_dampers, skid_width, skid_height]);
-    translate([base_length - strength_dampers, 0, -strength_mount - skid_height])
-        cube([strength_dampers, skid_width, skid_height]);
-    translate([base_length - .5*skid_length - .5*strength_dampers, 0, -strength_mount - skid_height])
-        cube([strength_dampers, skid_width, skid_height]);
-    translate([base_length - skid_length, 0, -2.*strength_mount - skid_height])
+    translate([base_length - skid_length, 0, -strength_mount - height_dampers])
+        cube([strength_dampers, strength_dampers, height_dampers]);
+    translate([base_length - strength_dampers, 0, -strength_mount - height_dampers])
+        cube([strength_dampers, strength_dampers, height_dampers]);
+    //translate([base_length - .5*skid_length - .5*strength_dampers, 0, -strength_mount - height_dampers])
+    //    cube([strength_dampers, skid_width, height_dampers]);
+    translate([base_length - skid_length, 0, -2.*strength_mount - height_dampers])
         cube([skid_length, skid_width, strength_mount]);
 }
